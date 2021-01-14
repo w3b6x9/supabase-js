@@ -1,5 +1,5 @@
 import { RealtimeSubscription, RealtimeClient, Transformers } from '@supabase/realtime-js'
-import { SupabaseEventTypes, SupabaseRealtimePayload } from './types'
+import { SupabaseRealtimePayload } from './types'
 
 export class SupabaseRealtimeClient {
   subscription: RealtimeSubscription
@@ -39,7 +39,7 @@ export class SupabaseRealtimeClient {
    * @param event The event
    * @param callback A callback function that is called whenever the event occurs.
    */
-  on(event: SupabaseEventTypes, callback: Function) {
+  on(event: 'INSERT' | 'UPDATE' | 'DELETE' | '*', callback: Function) {
     this.subscription.on(event, (payload: any) => {
       let enrichedPayload: SupabaseRealtimePayload<any> = {
         schema: payload.schema,
